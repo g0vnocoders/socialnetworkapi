@@ -5,3 +5,5 @@ dist
 *.key
 *.pub
 *.db
+# routes generated file by tsoa
+routes.ts
