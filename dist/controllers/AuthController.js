@@ -18,6 +18,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthController = void 0;
 const tsoa_1 = require("tsoa");
 let AuthController = class AuthController {
     authorize(login) {
@@ -39,4 +40,4 @@ __decorate([
 AuthController = __decorate([
     (0, tsoa_1.Route)("/")
 ], AuthController);
-exports.default = AuthController;
+exports.AuthController = AuthController;

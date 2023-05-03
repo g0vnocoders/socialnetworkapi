@@ -8,17 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const AuthController_1 = require("./../controllers/AuthController");
 const express_1 = require("express");
-const AuthController_1 = __importDefault(require("../controllers/AuthController"));
 let router = (0, express_1.Router)();
 /* GET 200 OK */
 router.get('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const controller = new AuthController_1.default();
+        const controller = new AuthController_1.AuthController();
         const response = yield controller.authorize(req.body);
         return res.send(response);
     });
