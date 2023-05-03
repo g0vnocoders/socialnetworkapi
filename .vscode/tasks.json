@@ -1,0 +1,16 @@
+{
+    //compile typescript via npm build
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "tsc: build",
+            "type": "shell",
+            "command": "npm run build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

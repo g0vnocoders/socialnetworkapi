@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @swagger
  * components:
@@ -32,12 +34,10 @@
  *         finished: false
  *         createdAt: 2020-03-10T04:05:06.157Z
  */
-var express = require('express');
-var router = express.Router();
-
+const express_1 = require("express");
+let router = (0, express_1.Router)();
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res) {
     res.send('respond with a resource');
 });
-
-module.exports = router;
+exports.default = router;
