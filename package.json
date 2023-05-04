@@ -17,7 +17,13 @@
         "http-errors": "~1.6.3",
         "jade": "^0.29.0",
         "morgan": "~1.9.1",
+        "pg": "^8.10.0",
+        "reflect-metadata": "^0.1.13",
         "run": "^1.4.0",
+        "sequelize": "^6.31.1",
+        "sequelize-typescript": "^2.1.5",
+        "sqlite": "^4.2.0",
+        "sqlite3": "^5.1.6",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^4.6.2",
         "tsoa": "^5.1.1"

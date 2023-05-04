@@ -7,6 +7,7 @@
 var app = require('..');
 var debug = require('debug')('socialnetworkapi:server');
 var http = require('http');
+var connection = require("../dbConnector").connection;
 
 /**
  * Get port from environment and store in Express.
@@ -28,6 +29,12 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+//init db on start
+connection.sync().then(() => {
+    console.log("db connected");
+}).catch((err: any) => {
+    console.log(err);
+});
 
 /**
  * Normalize a port into a number, string, or false.
