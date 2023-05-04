@@ -25,6 +25,26 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"LoginModel": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false,
+				"example": {
+					"username": "admin",
+					"password": "admin"
+				}
 			}
 		},
 		"securitySchemes": {}
@@ -62,6 +82,35 @@
 						}
 					}
 				]
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginModel"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

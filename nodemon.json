@@ -1,5 +1,5 @@
 {
-    "exec": "ts-node bin/www.ts",
-    "watch": ["src"],
+    "exec": "ts-node ./bin/www.ts",
+    "watch": ["./models", "./controllers"],
     "ext": "ts"
 }
