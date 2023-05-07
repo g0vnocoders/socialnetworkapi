@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('..');
-var debug = require('debug')('socialnetworkapi:server');
-var http = require('http');
-var connection = require("../dbConnector").connection;
+import app from '..';
+import debug from 'debug';
+import * as http from 'http';
+import { connection } from "../dbConnector";
 
 /**
  * Get port from environment and store in Express.
@@ -29,9 +29,21 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 //init db on start
-connection.sync().then(() => {
+connection.sync().then(async() => {
     console.log("db connected");
+    //check if accounts > 0
+    let users = await connection.models.UserEntity.findAll();
+    if(users.length > 0) return;
+    //create admin account
+    await connection.models.UserEntity.create({
+        username: "admin",
+        password: "admin",
+        email: "admin",
+        is_admin: true
+    });
+    console.log("admin account created");
 }).catch((err: any) => {
     console.log(err);
 });
@@ -92,6 +104,6 @@ function onListening() {
     var addr = server.address();
     var bind = typeof addr === 'string' ?
         'pipe ' + addr :
-        'port ' + addr.port;
+        'port ' + addr?.port;
     console.log('Listening on ' + bind);
 }

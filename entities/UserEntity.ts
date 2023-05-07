@@ -1,4 +1,5 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, BeforeCreate } from "sequelize-typescript";
+import { hashPassword, verifyPassword } from "../services/hashing";
 
 @Table({
     timestamps: false,
@@ -16,6 +17,11 @@ export class UserEntity extends Model {
         allowNull: false
     })
     password!: string;
+    //hashing hook
+    @BeforeCreate
+    static async hashPasswordHook(instance: UserEntity) {
+        instance.password = await hashPassword(instance.password);
+    }
 
     @Column({
         type: DataType.STRING,
@@ -29,6 +35,10 @@ export class UserEntity extends Model {
         defaultValue: false
     })
     is_admin!: boolean;
+
+    async validatePassword(password: string): Promise<boolean> {
+        return await verifyPassword(password, this.password);
+    }
 
 }
 

@@ -6,7 +6,7 @@ let router = Router();
 /* GET 200 OK */
 router.get('/', async function(req: Request, res: Response) {
     const controller = new AuthController();
-    const response = await controller.authorize(req.body);
+    const response = await controller.login(req.body);
     return res.send(response);
 });
 

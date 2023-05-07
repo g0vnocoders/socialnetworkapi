@@ -6,11 +6,8 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"AuthResponse": {
+			"StateResponse": {
 				"properties": {
-					"token": {
-						"type": "string"
-					},
 					"state": {
 						"type": "boolean"
 					},
@@ -19,9 +16,7 @@
 					}
 				},
 				"required": [
-					"token",
-					"state",
-					"message"
+					"state"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -47,7 +42,14 @@
 				}
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"tsoa_auth": {
+				"type": "http",
+				"scheme": "basic",
+				"description": "Basic Authentication",
+				"authorizationUrl": "http://localhost:3000/login"
+			}
+		}
 	},
 	"info": {
 		"title": "socialnetworkapi",
@@ -56,34 +58,6 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/test/{login}": {
-			"get": {
-				"operationId": "Authorize",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AuthResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "login",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
 		"/login": {
 			"post": {
 				"operationId": "Login",
@@ -93,7 +67,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AuthResponse"
+									"$ref": "#/components/schemas/StateResponse"
 								}
 							}
 						}
@@ -148,6 +122,31 @@
 						}
 					}
 				}
+			}
+		},
+		"/testprotected": {
+			"get": {
+				"operationId": "Testprotected",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StateResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": []
 			}
 		}
 	},

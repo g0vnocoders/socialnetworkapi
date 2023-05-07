@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { UserEntity } from "./entities/UserEntity";
 
-let connection;
+let connection: Sequelize;
 //run sqlite if development
 if(true){
     connection = new Sequelize({

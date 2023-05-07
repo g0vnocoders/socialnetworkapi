@@ -3,9 +3,18 @@
     "noImplicitAdditionalProperties": "throw-on-extras",
     "spec": {
         "outputDirectory": "public",
-        "specVersion": 3
+        "specVersion": 3,
+        "securityDefinitions": {
+            "tsoa_auth": {
+                "type": "http",
+                "scheme": "basic",
+                "description": "Basic Authentication",
+                "authorizationUrl": "http://localhost:3000/login"
+            }
+        }
     },
     "routes": {
-        "routesDir": "routes"
+        "routesDir": "routes",
+        "authenticationModule": "./Middleware/jwtauth.ts"
     }
 }
