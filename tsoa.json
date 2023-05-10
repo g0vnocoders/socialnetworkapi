@@ -5,11 +5,15 @@
         "outputDirectory": "public",
         "specVersion": 3,
         "securityDefinitions": {
-            "tsoa_auth": {
-                "type": "http",
-                "scheme": "basic",
-                "description": "Basic Authentication",
-                "authorizationUrl": "http://localhost:3000/login"
+            "jwt": {
+                "type": "apiKey",
+                "in": "cookie",
+                "name": "token"
+            },
+            "headerjwt": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-access-token"
             }
         }
     },

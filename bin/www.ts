@@ -8,7 +8,8 @@ import app from '..';
 import debug from 'debug';
 import * as http from 'http';
 import { connection } from "../dbConnector";
-
+import fs from 'fs';
+import { randomBytes } from 'crypto';
 /**
  * Get port from environment and store in Express.
  */
@@ -29,6 +30,19 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+//init jwt secret
+let secret = null;
+if(!fs.existsSync("./jwtsecret.key"))
+    secret = randomBytes(32).toString('base64');
+    if(secret != null)
+        fs.writeFileSync("./jwtsecret.key", secret);
+else
+    secret = fs.readFileSync("./jwtsecret.key").toString();
+
+process.env.JWT_SECRET = secret;
+
 
 //init db on start
 connection.sync().then(async() => {

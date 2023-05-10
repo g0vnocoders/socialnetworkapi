@@ -39,7 +39,7 @@ export class AuthController extends Controller{
         }
     }
 
-    @Security("jwt", ["admin"])
+    @Security("headerjwt", ["admin"])
     @Get("testprotected")
     public async testprotected(@Request() request: any): Promise<StateResponse> {
         return {state: true};
