@@ -1,5 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import { UserEntity } from "./entities/UserEntity";
+import { PostEntity } from "./entities/PostEntity";
+import { CommentEntity } from "./entities/CommentEntity";
+import { LikeEntity } from "./entities/LikeEntity";
+import { FollowEntity } from "./entities/FolllowEntity";
 
 let connection: Sequelize;
 //run sqlite if development
@@ -8,7 +12,7 @@ if(true){
         database: "db",
         dialect: "sqlite",
         storage: "sqlite.db",
-        models: [UserEntity],
+        models: [UserEntity, PostEntity],
         logging: false
     });
 }

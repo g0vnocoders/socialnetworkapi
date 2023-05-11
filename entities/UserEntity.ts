@@ -1,5 +1,7 @@
-import { Table, Model, Column, DataType, BeforeCreate } from "sequelize-typescript";
+import { Table, Model, Column, DataType, BeforeCreate, HasMany, BelongsToMany } from "sequelize-typescript";
 import { hashPassword, verifyPassword } from "../services/hashing";
+import { PostEntity } from "./PostEntity";
+import { FollowEntity } from "./FolllowEntity";
 
 @Table({
     timestamps: false,
@@ -11,6 +13,12 @@ export class UserEntity extends Model {
         allowNull: false
     })
     username!: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    nickName!: string;
 
     @Column({
         type: DataType.STRING,
@@ -35,6 +43,33 @@ export class UserEntity extends Model {
         defaultValue: false
     })
     is_admin!: boolean;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+        defaultValue: ""
+    })
+    avatar_url!: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+        defaultValue: ""
+    })
+    background_url!: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+        defaultValue: ""
+    })
+    description!: string;
+
+    @HasMany(() => PostEntity, { foreignKey: "user_id" })
+    posts!: PostEntity[];
+
+    //followings
+    //@BelongsToMany(() => UserEntity, () => FollowEntity, "subscriber_id", "target_id")
 
     async validatePassword(password: string): Promise<boolean> {
         return await verifyPassword(password, this.password);

@@ -10,6 +10,7 @@ import * as http from 'http';
 import { connection } from "../dbConnector";
 import fs from 'fs';
 import { randomBytes } from 'crypto';
+import { createTestRecords } from '../tests/data';
 /**
  * Get port from environment and store in Express.
  */
@@ -47,6 +48,7 @@ process.env.JWT_SECRET = secret;
 //init db on start
 connection.sync().then(async() => {
     console.log("db connected");
+    createTestRecords();
     //check if accounts > 0
     let users = await connection.models.UserEntity.findAll();
     if(users.length > 0) return;
@@ -55,6 +57,10 @@ connection.sync().then(async() => {
         username: "admin",
         password: "admin",
         email: "admin",
+        nickName: "administator",
+        avatar_url: "https://a.ppy.sh/1.png",
+        background_url: "https://a.ppy.sh/1.png",
+        description: "admin account",
         is_admin: true
     });
     console.log("admin account created");

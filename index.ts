@@ -11,7 +11,8 @@ import {default as usersRouter} from './routes/users';
 import { RegisterRoutes } from "./routes/routes";
 //swagger
 import swaggerUi from 'swagger-ui-express';
-
+//test
+import { createTestRecords } from "./tests/data";
 
 var app = express();
 
