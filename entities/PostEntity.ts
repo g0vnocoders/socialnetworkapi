@@ -15,8 +15,12 @@ export class PostEntity extends Model {
     user_id!: number;
 
     //@BelongsTo(() => UserEntity)
-    //@HasMany(() => CommentEntity, { foreignKey: "post_id"})
-    //@HasMany(() => LikeEntity, { foreignKey: "post_id", as: "like_post_id" })
+    //user!: UserEntity;å
+    @HasMany(() => CommentEntity, { foreignKey: "post_id"})
+    comments!: CommentEntity[];
+
+    @HasMany(() => LikeEntity, { foreignKey: "post_id"})
+    likes!: LikeEntity[];
 
     @Column({
         type: DataType.STRING,

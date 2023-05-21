@@ -12,7 +12,7 @@ if(true){
         database: "db",
         dialect: "sqlite",
         storage: "sqlite.db",
-        models: [UserEntity, PostEntity],
+        models: [UserEntity, PostEntity, CommentEntity, LikeEntity],
         logging: false
     });
 }

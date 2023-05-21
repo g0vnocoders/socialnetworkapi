@@ -18,7 +18,7 @@ export class CommentEntity extends Model {
     })
     post_id!: number;
 
-    @BelongsTo(() => PostEntity, { foreignKey: "post_id" })
+    //@BelongsTo(() => PostEntity, { foreignKey: "post_id" })
     
     @Column({
         type: DataType.STRING,

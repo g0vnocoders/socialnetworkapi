@@ -48,7 +48,8 @@ process.env.JWT_SECRET = secret;
 //init db on start
 connection.sync().then(async() => {
     console.log("db connected");
-    createTestRecords();
+    if(process.env.VSCODE_INJECTION === "1")
+        createTestRecords();
     //check if accounts > 0
     let users = await connection.models.UserEntity.findAll();
     if(users.length > 0) return;

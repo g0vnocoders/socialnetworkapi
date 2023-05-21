@@ -44,4 +44,10 @@ export class AuthController extends Controller{
     public async testprotected(@Request() request: any): Promise<StateResponse> {
         return {state: true};
     }
+
+    @Get("users")
+    public async users(): Promise<JsonObject> {
+        const users = await UserEntity.findAll();
+        return users;
+    }
 }

@@ -1,9 +1,9 @@
 import { LoginModel } from './../models/LoginModel';
-import { Body, Controller, Get, Post, Route, Request, Security, SuccessResponse } from "tsoa";
+import { Body, Controller, Get, Post, Route, Request, Response, Security, SuccessResponse } from "tsoa";
 import { StateError, StateResponse } from "../models/StateResponse";
 import { JsonObject } from 'swagger-ui-express';
 import { UserEntity } from '../entities/UserEntity';
-import { expressAuthentication } from "../Middleware/jwtauth";
+import { expressAuthentication, generateJWT } from "../Middleware/jwtauth";
 
 @Route("/")
 export class AuthController extends Controller{
@@ -22,6 +22,8 @@ export class AuthController extends Controller{
 
         //200
         this.setStatus(200);
+        const jwt = await generateJWT(user);
+        this.setHeader("Set-Cookie", `token=${jwt}; HttpOnly`);
         return {state: true};
     }
 
@@ -39,7 +41,7 @@ export class AuthController extends Controller{
         }
     }
 
-    @Security("headerjwt", ["admin"])
+    @Security("headerjwt", ["user"])
     @Get("testprotected")
     public async testprotected(@Request() request: any): Promise<StateResponse> {
         return {state: true};

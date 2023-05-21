@@ -13,7 +13,8 @@ export class LikeEntity extends Model {
     })
     user_id!: number;
 
-    @HasOne(() => UserEntity)
+    //@HasOne(() => UserEntity, { foreignKey: "user_id" })
+    //user!: UserEntity;
 
     @Column({
         type: DataType.INTEGER,
@@ -21,7 +22,8 @@ export class LikeEntity extends Model {
     })
     post_id!: number;
 
-    @BelongsTo(() => PostEntity)
+    //@BelongsTo(() => PostEntity)
+    //post!: PostEntity;
 
     @Column({
         type: DataType.BOOLEAN,

@@ -1,6 +1,7 @@
 import { assert } from "console";
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
+import { UserEntity } from "../entities/UserEntity";
 
 export function expressAuthentication(
     request: express.Request,
@@ -39,6 +40,29 @@ export function expressAuthentication(
                     }
                 }
                 resolve(decoded);
+            }
+        });
+    });
+}
+
+export function generateJWT(user: UserEntity): Promise<string>{
+    return new Promise((resolve, reject) => {
+        if(process.env.JWT_SECRET === undefined){
+            reject(new Error("JWT_SECRET not set"));
+            return;
+        }
+        const data = {
+            username: user.username,
+            id: user.id,
+            scopes: ["user"]
+        }
+        if(user.is_admin)
+            data.scopes.push("admin");
+        jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '1d' }, function (err: any, token: any) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(token);
             }
         });
     });
