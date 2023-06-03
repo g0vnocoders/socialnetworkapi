@@ -1,4 +1,5 @@
 import { AuthController } from './../controllers/AuthController';
+import { UserController } from '../controllers/UserController';
 import { Response, Request, Router } from 'express';
 
 let router = Router();

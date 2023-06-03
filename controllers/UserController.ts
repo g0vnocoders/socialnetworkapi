@@ -4,50 +4,31 @@ import { StateError, StateResponse } from "../models/StateResponse";
 import { JsonObject } from 'swagger-ui-express';
 import { UserEntity } from '../entities/UserEntity';
 import { expressAuthentication } from "../Middleware/jwtauth";
+import { MinUserModel } from '../models/MinUserModel';
+import { UserModel } from '../models/UserModel';
+import { getUserInfo, getUserPost, getUserPosts, getUsers } from '../services/UserQuery';
+import { PostEntity } from '../entities/PostEntity';
+import { MinPostModel } from '../models/MinPostModel';
 
-@Route("/Users")
-export class AuthController extends Controller{
-
-    @Post("login")
-    public async login(@Body() model: LoginModel): Promise<StateResponse> {
-        const user = await UserEntity.findOne({ where: { username: model.username } });
-        //set code to 401 if failed
-        this.setStatus(401);
-        if(!user) 
-            return StateError("User not found");
-
-        //check password
-        if(!await user.validatePassword(model.password)) 
-            return StateError("Invalid password");
-
-        //200
-        this.setStatus(200);
-        return {state: true};
+@Route("/users")
+export class UserController extends Controller{
+    @Get()
+    public async users(): Promise<MinUserModel[]> {
+       return await getUsers();
     }
 
-    @Post("register")
-    public async register(@Body() model: LoginModel){
-        const user: UserEntity = await UserEntity.create({
-            username: model.username,
-            password: model.password,
-            email: model.username,
-            is_admin: false
-        });
-        //201
-        return {
-            "state": true
-        }
+    @Get("{id}")
+    public async user(id: number): Promise<UserModel|null> {
+        return await getUserInfo(id);
     }
 
-    @Security("headerjwt", ["admin"])
-    @Get("testprotected")
-    public async testprotected(@Request() request: any): Promise<StateResponse> {
-        return {state: true};
+    @Get("{id}/posts")
+    public async userPosts(id: number): Promise<MinPostModel[]|null> {
+        return await getUserPosts(id);
     }
-
-    @Get("users")
-    public async users(): Promise<JsonObject> {
-        const users = await UserEntity.findAll();
-        return users;
+    
+    @Get("{id}/posts/{post_id}")
+    public async userPost(id: number, post_id: number): Promise<MinPostModel|null> {
+        return await getUserPost(id, post_id);
     }
 }

@@ -62,6 +62,8 @@ export async function createTestRecords() {
         return;
     console.log(postoftestuser.dataValues);
     console.log(commentoftestuser.dataValues);
+    if(like[0] == undefined)
+        return;
     console.log(like[0].dataValues);
     assert(postoftestuser.name == "test");
     /*

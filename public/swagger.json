@@ -40,6 +40,107 @@
 					"username": "admin",
 					"password": "admin"
 				}
+			},
+			"MinUserModel": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"avatarURL": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"email",
+					"avatarURL"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserModel": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"avatarURL": {
+						"type": "string"
+					},
+					"followers": {
+						"type": "number",
+						"format": "double"
+					},
+					"following": {
+						"type": "number",
+						"format": "double"
+					},
+					"nickName": {
+						"type": "string"
+					},
+					"backgroundURL": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"email",
+					"avatarURL",
+					"followers",
+					"following",
+					"nickName",
+					"backgroundURL",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MinPostModel": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"default": ""
+					},
+					"text": {
+						"type": "string",
+						"default": ""
+					},
+					"image_url": {
+						"type": "string",
+						"default": ""
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"default": "2023-06-03T17:22:48.291Z"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false,
+				"example": {
+					"id": 1,
+					"user_id": 1,
+					"name": "Post 1",
+					"text": "This is a post",
+					"image_url": "https://a.ppy.sh/1",
+					"createdAt": "2021-04-20T20:00:00.000Z"
+				}
 			}
 		},
 		"securitySchemes": {
@@ -151,6 +252,138 @@
 					}
 				],
 				"parameters": []
+			}
+		},
+		"/users": {
+			"get": {
+				"operationId": "Users",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/MinUserModel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "User",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/UserModel"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/users/{id}/posts": {
+			"get": {
+				"operationId": "UserPosts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/MinPostModel"
+									},
+									"type": "array",
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/users/{id}/posts/{post_id}": {
+			"get": {
+				"operationId": "UserPost",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/MinPostModel"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "path",
+						"name": "post_id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		}
 	},

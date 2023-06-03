@@ -7,7 +7,7 @@ import { FollowEntity } from "./entities/FolllowEntity";
 
 let connection: Sequelize;
 //run sqlite if development
-if(true){
+if(false){
     connection = new Sequelize({
         database: "db",
         dialect: "sqlite",
@@ -19,13 +19,13 @@ if(true){
 else{
     //run postgres if production
     connection = new Sequelize({
-        database: "d7q4q4q3q3q3q3",
+        database: "socialnetwork",
         dialect: "postgres",
-        username: "jvqjwqjwqjwqjw",
-        password: "d7q4q4q3q3q3q3",
-        host: "ec2-54-217-235-166.eu-west-1.compute.amazonaws.com",
+        username: "root",
+        password: "root",
+        host: "sudohub.dev",
         port: 5432,
-        models: [UserEntity],
+        models: [UserEntity, PostEntity, CommentEntity, LikeEntity],
         logging: false
     });
 }

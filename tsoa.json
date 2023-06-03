@@ -20,5 +20,10 @@
     "routes": {
         "routesDir": "routes",
         "authenticationModule": "./Middleware/jwtauth.ts"
+    },
+    "controller": {
+        "classTransformer": true,
+        "routePrefix": "/",
+        "controllers": ["./Controllers/*.ts"]
     }
 }

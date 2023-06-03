@@ -7,7 +7,6 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 //routes
 import {default as indexRouter} from './routes/index';
-import {default as usersRouter} from './routes/users';
 import { RegisterRoutes } from "./routes/routes";
 //swagger
 import swaggerUi from 'swagger-ui-express';
@@ -27,7 +26,6 @@ app.use(cookieParser());
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(undefined, { swaggerOptions: { url: '/swagger.json' } }));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 RegisterRoutes(app);
 
