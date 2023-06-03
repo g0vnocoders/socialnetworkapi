@@ -7,7 +7,7 @@ import { FollowEntity } from "./entities/FolllowEntity";
 
 let connection: Sequelize;
 //run sqlite if development
-if(false){
+if(true){
     connection = new Sequelize({
         database: "db",
         dialect: "sqlite",
