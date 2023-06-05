@@ -32,7 +32,8 @@ export class AuthController extends Controller{
         const user: UserEntity = await UserEntity.create({
             username: model.username,
             password: model.password,
-            email: model.username,
+            email: model.email,
+            nickName: model.username,
             is_admin: false
         });
         //201

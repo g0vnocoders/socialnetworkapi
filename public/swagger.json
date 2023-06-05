@@ -26,18 +26,23 @@
 					"username": {
 						"type": "string"
 					},
+					"email": {
+						"type": "string"
+					},
 					"password": {
 						"type": "string"
 					}
 				},
 				"required": [
 					"username",
+					"email",
 					"password"
 				],
 				"type": "object",
 				"additionalProperties": false,
 				"example": {
 					"username": "admin",
+					"email": "admin@example.com",
 					"password": "admin"
 				}
 			},
@@ -128,7 +133,7 @@
 					"createdAt": {
 						"type": "string",
 						"format": "date-time",
-						"default": "2023-06-03T17:22:48.291Z"
+						"default": "2023-06-05T20:33:04.703Z"
 					}
 				},
 				"type": "object",
