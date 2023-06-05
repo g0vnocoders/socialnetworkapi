@@ -10,7 +10,7 @@ export class AuthController extends Controller{
 
     @Post("login")
     public async login(@Body() model: LoginModel): Promise<StateResponse> {
-        const user = await UserEntity.findOne({ where: { username: model.username } });
+        const user = await UserEntity.findOne({ where: { email: model.email } });
         //set code to 401 if failed
         this.setStatus(401);
         if(!user) 

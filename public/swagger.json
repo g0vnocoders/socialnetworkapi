@@ -133,7 +133,7 @@
 					"createdAt": {
 						"type": "string",
 						"format": "date-time",
-						"default": "2023-06-05T20:33:04.703Z"
+						"default": "2023-06-05T20:35:25.463Z"
 					}
 				},
 				"type": "object",
