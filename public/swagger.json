@@ -118,6 +118,11 @@
 			},
 			"MinPostModel": {
 				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"default": 0
+					},
 					"name": {
 						"type": "string",
 						"default": ""
@@ -133,7 +138,7 @@
 					"createdAt": {
 						"type": "string",
 						"format": "date-time",
-						"default": "2023-06-05T20:35:25.463Z"
+						"default": "2023-06-08T15:47:57.036Z"
 					}
 				},
 				"type": "object",
@@ -146,6 +151,44 @@
 					"image_url": "https://a.ppy.sh/1",
 					"createdAt": "2021-04-20T20:00:00.000Z"
 				}
+			},
+			"PostModel": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"default": 0
+					},
+					"name": {
+						"type": "string",
+						"default": ""
+					},
+					"text": {
+						"type": "string",
+						"default": ""
+					},
+					"image_url": {
+						"type": "string",
+						"default": ""
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"default": "2023-06-08T15:47:57.036Z"
+					},
+					"user_id": {
+						"type": "number",
+						"format": "double",
+						"default": 0
+					},
+					"likes": {
+						"type": "number",
+						"format": "double",
+						"default": 0
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -389,6 +432,46 @@
 						}
 					}
 				]
+			}
+		},
+		"/posts": {
+			"post": {
+				"operationId": "CreatePost",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/StateResponse"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"headerjwt": [
+							"user"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostModel"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

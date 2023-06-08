@@ -15,7 +15,7 @@ export class PostEntity extends Model {
     user_id!: number;
 
     //@BelongsTo(() => UserEntity)
-    //user!: UserEntity;å
+    //user!: UserEntity;
     @HasMany(() => CommentEntity, { foreignKey: "post_id"})
     comments!: CommentEntity[];
 

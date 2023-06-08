@@ -24,6 +24,6 @@
     "controller": {
         "classTransformer": true,
         "routePrefix": "/",
-        "controllers": ["./Controllers/*.ts"]
+        "controllers": ["./controllers/*.ts"]
     }
 }

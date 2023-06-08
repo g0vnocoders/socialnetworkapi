@@ -14,7 +14,7 @@ import { PostEntity } from '../entities/PostEntity';
 
 export class MinPostModel
 {
-
+    id: number = 0;
     name: string = "";
     text: string = "";
     image_url: string = "";
@@ -22,6 +22,7 @@ export class MinPostModel
     
     constructor(PostEntity: PostEntity)
     {
+        this.id = PostEntity.id;
         this.name = PostEntity.name;
         this.text = PostEntity.text;
         this.image_url = PostEntity.image_url;
